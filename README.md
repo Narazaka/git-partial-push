@@ -1,15 +1,26 @@
 # git-partial-push
 
-To install dependencies:
+git push for large repo
 
-```bash
-bun install
+## Install
+
+download exe from [releases](https://github.com/Narazaka/git-partial-push/releases/latest)
+
+## Usage
+
+```
+git-partial-push
+
+OPTIONS:
+  --branch, -b <str>        - git branch
+  --remote, -r <str>        - git remote
+  --cwd, -c <str>           - working directory (default .) [optional]
+  --batch-size, -s <number> - batch size (default 30) [optional]
+
+FLAGS:
+  --help, -h - show help
 ```
 
-To run:
+## License
 
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.1.29. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+[Zlib license](LICENSE)
