@@ -1,0 +1,15 @@
+{
+  "name": "git-partial-push",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "prettier": "^3.3.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "cmd-ts": "^0.13.0"
+  }
+}
