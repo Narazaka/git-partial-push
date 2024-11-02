@@ -1,0 +1,47 @@
+name: Build Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: install Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Bun install
+        run: bun install --frozen-lockfile
+
+      - name: Bun run build
+        run: bun run build
+
+      - name: mv dist
+        run: mv dist git-partial-push-${{ github.ref_name }}-${{ runner.os }}
+
+      - name: Create Zip
+        uses: thedoctor0/zip-release@09336613be18a8208dfa66bd57efafd9e2685657
+        with:
+          type: "zip"
+          directory: .
+          path: git-partial-push-${{ github.ref_name }}-${{ runner.os }}
+          filename: git-partial-push-${{ github.ref_name }}-${{ runner.os }}.zip
+          exclusions: "*.git*"
+
+      - name: Make Release
+        uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: git-partial-push-${{ github.ref_name }}-${{ runner.os }}.zip
